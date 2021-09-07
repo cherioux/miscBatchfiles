@@ -5,7 +5,7 @@
 ;//;;dospc.ahk - Windows modifier keys, some are helpful   |
 ;//;;  others should be removed ;nothing but p a i n       |
 ;//;;modifiers for increased productivity for me at least:)|
-;//;;v1.5 File: dospc.ahk Loc: Desktop;Always              |
+;//;;v1.6 File: dospc.ahk Loc: Desktop;Always              |
 ;//;;History: Dec-29-17-19 Cherioux Created *.ahk          |
 ;//+-------------------------------------------------------|
 ;***********************************************************
@@ -20,6 +20,7 @@
     send, ^+n
 return
  }
+ 
 		{
 ;;; if explorer.exe is active, pressing Shift + F2 will bring up the selection menu. Tab to select, enter to open.<
 if winActive explorer.exe
@@ -27,26 +28,31 @@ if winActive explorer.exe
 	send, <#2
 return
  }  
+ 
 	{
  ^+a:: ;Press Ctrl Shift A to take a screenshot. Easier than Windows Printscreen, you only need one hand.
 	send, #{PrintScreen}
    sleep 5
 	send, {Lwin up} ;I've had issues with modifier keys getting stuck
 return
+;This code ended up being integrated with LGS for the G600, G15 runs line 33 of this thread.
 }
+
 	{
  !+F1:: ;Opens DOSBox. Mount DOSGames folder as C:. Mounts DVD drive. ;Not really applicable to anyone else however
  ;Doesn't work since Windows decided to ruin itself and now I have to go and reinstall DosBox, but I'm too lazy to. Might as well comment it out, but again too lazy to even do that. Fml
 	run, C:\Program Files (x86)\DOSBox-0.74-3\DOSBox.exe
    sleep 2200
-	send, mount E E:\ -t cdrom {Enter}
+	send, mount W W:\ -t cdrom {Enter}
    sleep 2500
 	send, mount D C:\dos\dosgames {Enter}
    sleep 2500
     send, mount C C:\dos\win {Enter}
 return
  }
+ 
 	{ ;media controls ;Self
+	;the bottom three aren't too useful anymore, considering that I have two keyboards in which both have physical volume controls, however, they're integrated in with LGS for the G600. 3rd key+G16/17 is volume, G18 is play/pause, and G16/17 is rewind and fast-forwards respectively. This code needs to stay intact.
  ^+Left::SoundSet,-1 ;sound control
  ^+Right::SoundSet,+1
  !Numpad0::Media_Play_Pause
@@ -55,7 +61,23 @@ return
 send, {Alt up}
 return
 }
-
+;exploitation tools below
+	{
+ !+^F6:: ;Launches Veracrypt. Need to provide keyfile or 60-character password to open H:\(1.hc). Task Scheduler runs this part of the thread at system boot, whether I'm logged on or not. I won't be able to tell that this has ran until I log in and see the Veracrypt gui telling me to decrypt the drive, however. MS COFEE is a part of an old leak, only runs on Windows XP. I need to open this in a VM in order to utilize it.
+	run, C:\Program Files\VeraCrypt\VeraCrypt.exe
+    ;run, D:\Backup\dump\MSSrc.20200924\misc\wikileaks\microsoft-cofee\cofee.msi
+;if needed keyfile is inside PC.
+return 
+ }
+	{
+!+^F7:: ;Runs Metasploit Console, but only after Veracrypt has been ran and 1.hc has been unlocked to the system. Does not start msfvenom; msfvenom is seperate from the console application. Is not ran on startup.
+    run, cmd
+   sleep 2000
+    send, H: {enter}
+	send, cd metasploit-framework\bin\{enter}
+	send, msfconsole{enter}
+return
+ }
 /*
 ;**************************************************************************************************
 ;Partly stolen then heavily modified from somewhere, I don't recall where I got it from. MOST likely taranVH, but I do NOT know if that's true anymore. Either way, doesn't work the way that I would have liked it to work, so it's commented out. Complete mess of spaghetti code, even though most is commented I don't have a clue what's going on anymore. vempire hehe*
