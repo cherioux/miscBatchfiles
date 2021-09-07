@@ -1,0 +1,12 @@
+/*NEW TAB BLACK; 12/1/2020*/
+@-moz-document url(about:blank), url(about:newtab), url(about:home) {
+  html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay, #newtab-search-text {
+    background: #000000 !important;
+	
+  }
+.SnippetBaseContainer {
+	background-color: #000000 !important;
+	}
+}
+
+/*END NEW TAB EDIT*/

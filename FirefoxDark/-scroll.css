@@ -1,0 +1,9 @@
+* {
+	scrollbar-color: rgb(38, 163, 219) rgb(28, 30, 32);
+	scrollbar-width: thin;
+}
+/*Orange Highlight Selection*/
+::-moz-selection {
+  background: #ff4900bd !important; /*GeckoBrowser78*/
+}
+/*End*/
