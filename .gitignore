@@ -1,6 +1,6 @@
 ### Batch File ###
 #BatchFiles
-*.bat
+*.asm
 *.cmd
 *.exe
 *.btm
